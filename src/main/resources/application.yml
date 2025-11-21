@@ -1,0 +1,31 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      schema.registry.url: http://localhost:8081
+      specific.avro.reader: true
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+        retries: 3
+        acks: all
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        specific.avro.reader: true
+      group-id: order-processing-group
+      auto-offset-reset: earliest
+
+app:
+  kafka:
+    topics:
+      orders: orders-topic
+      orders-dlq: orders-dlq-topic
+      orders-retry: orders-retry-topic
+    retry:
+      max-attempts: 3
+      backoff-interval: 1000

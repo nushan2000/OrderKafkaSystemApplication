@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "name": "Order",
+  "namespace": "com.example.order_kafka_system.model",
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "string"
+    },
+    {
+      "name": "product",
+      "type": "string"
+    },
+    {
+      "name": "price",
+      "type": "float"
+    }
+  ]
+}
